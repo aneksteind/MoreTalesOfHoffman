@@ -14,9 +14,12 @@ Options:
   --out TEXT                      the .csv file to write results to
                                   [required]
   --verbose / --quiet             print the graph names during execution
+  --wolfram / --custom            Flag specifying use of DOT files generated
+                                  from Wolfram GraphData, names must match
+                                  those in graphdata.csv
   --dot-dir TEXT                  the directory containing DOT files for use
                                   in named graph bounds checking  [default:
-                                  GraphDir/]
+                                  GraphData/]
   --help                          Show this message and exit.
 ```
   
