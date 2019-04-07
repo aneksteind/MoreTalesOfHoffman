@@ -324,6 +324,7 @@ def named_graphs(min_order, max_order, dotdir, verbose=False):
         Gets named graphs represented as dot files.
     '''
 
+    path = dotdir
     # graph the full list of graph file names
     files = os.listdir(path)
 
@@ -341,8 +342,9 @@ def named_graphs(min_order, max_order, dotdir, verbose=False):
 @click.option('--graph-source', 'source', required=True, type=click.Choice(['named', 'circulant']), help='named graphs from the mathematica database or generated circulant graphs')
 @click.option('--out', 'outfile', required=True, help="the .csv file to write results to")
 @click.option('--verbose/--quiet', default=False, help='print the graph names during execution')
-@click.option('--dot-dir', 'dotdir', default='GraphDir/', show_default=True, help='the directory containing DOT files for use in named graph bounds checking')
-def test(min_order, max_order, source, outfile, verbose, dotdir):
+@click.option('--wolfram/--custom', default=False, help='Flag specifying use of DOT files generated from Wolfram GraphData, names must match those in graphdata.csv')
+@click.option('--dot-dir', 'dotdir', default='GraphData/', show_default=True, help='the directory containing DOT files for use in named graph bounds checking')
+def test(min_order, max_order, source, outfile, verbose, wolfram, dotdir):
     # write headers of temp csv file
     with open(outfile, 'w') as logfile:
         logfile.write(','.join(["Name","Test Type","Passed Bound Check","Bound is Close","Lower","Upper","IsRegular"]) + '\n')
@@ -356,8 +358,8 @@ def test(min_order, max_order, source, outfile, verbose, dotdir):
     # run and write the tests
     results = list(map(lambda a: compare(*a,outfile,verbose=verbose), graphs))
 
-    # write the results to the ouput specified
-    util.write_final(outfile, source=='named')
+    # write Wolfram graphs in a special way (meta data included)
+    if wolfram: util.write_final(outfile, source=='named')
 
 
 
