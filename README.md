@@ -6,11 +6,8 @@ python conj.py test --help
 Usage: conj.py test [OPTIONS]
 
 Options:
-  --max INTEGER                   the maximum number of vertices to consider
-                                  when generating a circulant graph
-                                  [required]
-  --min INTEGER                   the minimum number of vertices to consider
-                                  when generating a circulant graph
+  --max INTEGER                   the maximum number of vertices  [required]
+  --min INTEGER                   the minimum number of vertices
   --graph-source [named|circulant]
                                   named graphs from the mathematica database
                                   or generated circulant graphs  [required]
