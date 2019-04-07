@@ -337,8 +337,8 @@ def named_graphs(min_order, max_order, verbose=False):
 
 
 @cli.command()
-@click.option('--max', 'max_order', required=True, type=int, help='the maximum number of vertices to consider when generating a circulant graph')
-@click.option('--min', 'min_order', type=int, default=1, help='the minimum number of vertices to consider when generating a circulant graph')
+@click.option('--max', 'max_order', required=True, type=int, help='the maximum number of vertices')
+@click.option('--min', 'min_order', type=int, default=1, help='the minimum number of vertices')
 @click.option('--graph-source', 'source', required=True, type=click.Choice(['named', 'circulant']), help='named graphs from the mathematica database or generated circulant graphs')
 @click.option('--out', 'outfile', required=True, help="the .csv file to write results to")
 @click.option('--verbose/--quiet', default=False, help='print the graph names during execution')
