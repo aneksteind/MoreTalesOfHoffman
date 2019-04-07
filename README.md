@@ -4,4 +4,4 @@ Code written in support of testing various bounds in [More Tales of Hoffman: bou
 `python conj.py test --help`
 
 ## caveats
-Running this code with the intention of using `named` graphs requires a directory of the name `GraphData`, with DOT files of graphs contained within. More about DOT files can be found [here](https://en.wikipedia.org/wiki/DOT_%28graph_description_language%29)
+Running this code with the intention of using `named` graphs requires a directory of the name `GraphData`, with DOT files of graphs contained within. More about DOT files can be found [here](https://en.wikipedia.org/wiki/DOT_%28graph_description_language%29).
