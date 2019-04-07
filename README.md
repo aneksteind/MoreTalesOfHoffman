@@ -14,8 +14,11 @@ Options:
   --out TEXT                      the .csv file to write results to
                                   [required]
   --verbose / --quiet             print the graph names during execution
+  --dot-dir TEXT                  the directory containing DOT files for use
+                                  in named graph bounds checking  [default:
+                                  GraphDir/]
   --help                          Show this message and exit.
 ```
   
 ## caveats
-Running this code with the intention of using `named` graphs requires a directory of the name `GraphData`, with DOT files of graphs contained within. More about DOT files can be found [here](https://en.wikipedia.org/wiki/DOT_%28graph_description_language%29). Due to terms of use agreements in Mathematica and Wolfram, the DOT files of the named graphs in the Wolfram database are not provided here. The names of the graphs used can be found in `graph_data.csv`.
+Running this code with the intention of using `named` graphs requires a directory with DOT files of graphs contained within. More about DOT files can be found [here](https://en.wikipedia.org/wiki/DOT_%28graph_description_language%29). Due to terms of use agreements in Mathematica and Wolfram, the DOT files of the named graphs in the Wolfram database are not provided here. The names of the graphs used can be found in `graph_data.csv`, and DOT files of these named graphs can be produced using [this](https://reference.wolfram.com/language/ref/format/DOT.html).

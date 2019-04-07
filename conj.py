@@ -319,13 +319,12 @@ def circulant_gen(min_order, max_order):
             
 
 
-def named_graphs(min_order, max_order, verbose=False):
+def named_graphs(min_order, max_order, dotdir, verbose=False):
     '''
         Gets named graphs represented as dot files.
     '''
 
     # graph the full list of graph file names
-    path = 'GraphData/'
     files = os.listdir(path)
 
     graph_pairings = []
@@ -342,14 +341,15 @@ def named_graphs(min_order, max_order, verbose=False):
 @click.option('--graph-source', 'source', required=True, type=click.Choice(['named', 'circulant']), help='named graphs from the mathematica database or generated circulant graphs')
 @click.option('--out', 'outfile', required=True, help="the .csv file to write results to")
 @click.option('--verbose/--quiet', default=False, help='print the graph names during execution')
-def test(min_order, max_order, source, outfile, verbose):
+@click.option('--dot-dir', 'dotdir', default='GraphDir/', show_default=True, help='the directory containing DOT files for use in named graph bounds checking')
+def test(min_order, max_order, source, outfile, verbose, dotdir):
     # write headers of temp csv file
     with open(outfile, 'w') as logfile:
         logfile.write(','.join(["Name","Test Type","Passed Bound Check","Bound is Close","Lower","Upper","IsRegular"]) + '\n')
 
     # get the graphs to test
     if source == 'named':
-        graphs = named_graphs(min_order, max_order, verbose=verbose)
+        graphs = named_graphs(min_order, max_order, dotdir, verbose=verbose)
     else:
         graphs = circulant_gen(min_order, max_order)
 
