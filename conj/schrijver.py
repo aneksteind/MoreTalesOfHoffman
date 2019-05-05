@@ -26,18 +26,11 @@
 # THE SOFTWARE.
 
 from __future__ import print_function
-from math import sqrt
-
-# from sage.all import *
 
 import numpy as np
 
 import cvxopt.base
 import cvxopt.solvers
-
-# import matplotlib.pyplot as plt
-
-import cProfile
 
 
 def parse_graph(G, complement=False):
@@ -125,10 +118,10 @@ def lovasz_theta(G, long_return=False, complement=False):
     sol = cvxopt.solvers.sdp(c, Gs=[G1], hs=[h1])
 
     if long_return:
-        theta = sol["x"][ne]
+        th = sol["x"][ne]
         Z = np.array(sol["ss"][0])
         B = np.array(sol["zs"][0])
-        return {"theta": theta, "Z": Z, "B": B}
+        return {"theta": th, "Z": Z, "B": B}
     else:
         return sol["x"][ne]
 
@@ -196,10 +189,10 @@ def schrijver_theta(G, long_return=False, complement=False):
     sol = cvxopt.solvers.sdp(c, Gl=G0, hl=h0, Gs=[G1], hs=[h1])
 
     if long_return:
-        theta = sol["x"][clen - 1]
+        th = sol["x"][clen - 1]
         Z = np.array(sol["ss"][0])
         B = np.array(sol["zs"][0])
-        return {"theta": theta, "Z": Z, "B": B}
+        return {"theta": th, "Z": Z, "B": B}
     else:
         return sol["x"][clen - 1]
 
@@ -254,10 +247,10 @@ def szegedy_theta(G, long_return=False, complement=False):
     sol = cvxopt.solvers.sdp(c, Gl=G0, hl=h0, Gs=[G1], hs=[h1])
 
     if long_return:
-        theta = sol["x"][ne]
+        th = sol["x"][ne]
         Z = np.array(sol["ss"][0])
         B = np.array(sol["zs"][0])
-        return {"theta": theta, "Z": Z, "B": B}
+        return {"theta": th, "Z": Z, "B": B}
     else:
         return sol["x"][ne]
 
