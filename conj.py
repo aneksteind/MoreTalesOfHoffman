@@ -1,19 +1,16 @@
-import schrijver
-import util
-
 import os
 import itertools
 import click
-import csv
-
 import scipy.sparse
 
 import numpy as np
 import networkx as nx
 
-from copy import deepcopy
-from math import isclose, floor
+from math import floor
 from scipy.linalg import eigvalsh
+
+import schrijver
+import util
 
 
 @click.group()
@@ -52,7 +49,7 @@ def adjacency(G, nodelist=None, weight="weight"):
     return A
 
 
-def spectrum(G, weight="weight"):
+def spectrum(G):
     """
         Gets the eigenvalues of the graph, represented
         with a sparse of dense adjacency matrix.
@@ -60,7 +57,7 @@ def spectrum(G, weight="weight"):
 
     try:
         return eigvalsh(G.todense())
-    except:
+    except ValueError:
         return eigvalsh(G)
 
 
@@ -106,7 +103,7 @@ def ando_lin(eigen_values):
 
 def hoffman(mu_1, mu_n):
     """
-        Calculates the Hoffman bound of a graph given 
+        Calculates the Hoffman bound of a graph given
         the largest and smallest eigenvalues of the adjacency matrix.
     """
     return 1 + (mu_1 / abs(mu_n))
@@ -177,7 +174,6 @@ def is_regular(G):
         Checks if all nodes in the graph have the same degree.
     """
 
-    regularity = True
     deg = None
 
     for node in G:
@@ -205,20 +201,10 @@ def compare(G, name, tmp_file, verbose=False):
     except:
         raise Exception(f"{name}: thmb 0 exception.")
 
-    n = G.order()
-    m = G.size()
-
     D, A = laplacian_pieces(G)
-    SL = D + A
-    L = D - A
 
     # eigenvalues of A
     mus = spectrum(A)
-
-    # largest eigenvalue of the adjacency matrix
-    m1 = max(mus)
-    # smallest eigevalue fo the adjacency matrix
-    mn = min(mus)
 
     pos, negs, _ = cluster_eignvalues(mus)
     rank = len(pos) + len(negs)
@@ -331,7 +317,6 @@ def named_graphs(min_order, max_order, dotdir, verbose=False):
     # graph the full list of graph file names
     files = os.listdir(path)
 
-    graph_pairings = []
     for filename in files:
         G = from_dot(path + filename)
         if (
@@ -402,7 +387,7 @@ def test(min_order, max_order, source, outfile, verbose, wolfram, dotdir):
         graphs = circulant_gen(min_order, max_order)
 
     # run and write the tests
-    results = list(map(lambda a: compare(*a, outfile, verbose=verbose), graphs))
+    _ = list(map(lambda a: compare(*a, outfile, verbose=verbose), graphs))
 
     # write Wolfram graphs in a special way (meta data included)
     if wolfram:
