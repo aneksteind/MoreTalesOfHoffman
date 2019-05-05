@@ -24,7 +24,6 @@ def write_final(outfile, named):
 
         # inner join the meta-data with the results on graph name
         # and write those contents to the outfile provided
-        written = False
         with open(outfile, "r") as results, open(tmp_file, "w") as final:
 
             resultsreader = csv.reader(results, delimiter=",")
